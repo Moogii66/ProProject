@@ -1,112 +1,147 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
-import type {Node} from 'react';
+import React, { useState } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
+   Text,
+   View,
+   StyleSheet,
+   SafeAreaView,
+   TextInput,
+   Image,
+   TouchableOpacity,
+   Modal,
 } from 'react-native';
+// import LottieView from 'lottie-react-native';
+const App = () => {
+   const [modalVisible, setModalVisible] = useState(false);
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+   function modal() {
+      return (
+         <Modal
+            animationType="fade"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+               Alert.alert("Modal has been closed.");
+               setModalVisible(!modalVisible);
+            }}
+         >
+            <View style={styles.modalContainer}>
+               <View style={styles.modal}>
+                  <View style={{ width: '30%', height: '30%', borderWidth: 1 }}>
+                     {/* <LottieView
+                        style={{ width: 70, height: 70, borderWidth: 1 }}
+                        source={require('./assets/images/4080-sound-bars-animation.json')}
+                        size={30}
+                        autoPlay
+                        loop
+                     /> */}
+                  </View>
+                  <View style={styles.textContainer}>
+                     <Text>Moogii</Text>
+                  </View>
+                  <View style={styles.buttonContainer}>
+                     <TouchableOpacity style={styles.button}>
+                        <Text style={styles.btnText}>RETRY</Text>
+                     </TouchableOpacity>
+                     <TouchableOpacity style={styles.button}>
+                        <Text style={styles.btnText}>OK</Text>
+                     </TouchableOpacity>
+                  </View>
+               </View>
+            </View>
+         </Modal>
+      );
+   };
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
+   function textInput() {
+      return (
+         <View style={styles.container}>
+            <View style={styles.subContainer}>
+               <TextInput
+                  style={styles.input}
+                  placeholder="Type"
+                  keyboardType="numeric"
+               />
+               <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                  <Image
+                     source={require("./assets/images/mic.png")}
+                     resizeMode="contain"
+                     style={{
+                        width: 35,
+                        height: 35,
+                        marginVertical: 5,
+                        marginLeft: 20,
+                     }}
+                  />
+               </TouchableOpacity>
+            </View>
+            {/* <LottieView
+               style={{ width: 70, height: 70, borderWidth: 1 }}
+               source={require('./assets/images/4080-sound-bars-animation.json')}
+               size={30}
+               autoPlay
+               loop
+            /> */}
+         </View>
+      )
+   }
+
+   return (
+      <SafeAreaView>
+         {textInput()}
+         {modal()}
+      </SafeAreaView>
+   );
 };
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
+   textContainer: {
+      marginVertical: 15
+   },
+   btnText: {
+      color: "white",
+      fontWeight: "900"
+   },
+   button: {
+      marginHorizontal: 20,
+      width: '35%',
+      height: '50%',
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "#FF3366",
+      borderRadius: 10,
+   },
+   buttonContainer: {
+      flexDirection: "row",
+      justifyContent: "flex-end"
+   },
+   container: {
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "lightgreen",
+      marginTop: 100,
+   },
+   subContainer: {
+      flexDirection: "row",
+      justifyContent: "flex-start",
+      height: '40%',
+      width: '90%',
+      backgroundColor: "white",
+   },
+   input: {
+      width: '70%',
+   },
+   modalContainer: {
+      width: '100%',
+      height: '100%',
+      backgroundColor: "#00000040",
+      alignItems: "center",
+      justifyContent: "center"
+   },
+   modal: {
+      width: '70%',
+      height: '30%',
+      borderRadius: 20,
+      backgroundColor: "white",
+      alignItems: "center"
+   }
+})
 export default App;
