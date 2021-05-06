@@ -26,15 +26,30 @@ const App = () => {
          >
             <View style={styles.modalContainer}>
                <View style={styles.modal}>
-                  <View style={{ width: '30%', height: '30%', borderWidth: 1 }}>
-                     {/* <LottieView
+                  <TouchableOpacity 
+                     style={{  width:'100%', flexDirection:"row", justifyContent:"flex-end"}}
+                     onPress={()=> setModalVisible(!modalVisible)}
+                     >
+                     <Image
+                        source={require("./assets/images/cancel.png")}
+                        resizeMode="contain"
+                        style={{
+                           width: 30,
+                           height: 30,
+                           margin:8
+                        }}
+                     />
+                  </TouchableOpacity>
+
+                  {/* <View style={{ width: '30%', height: '30%', borderWidth: 1 }}>
+                     <LottieView
                         style={{ width: 70, height: 70, borderWidth: 1 }}
                         source={require('./assets/images/4080-sound-bars-animation.json')}
                         size={30}
                         autoPlay
                         loop
-                     /> */}
-                  </View>
+                     />
+                  </View> */}
                   <View style={styles.textContainer}>
                      <Text>Moogii</Text>
                   </View>
@@ -74,13 +89,6 @@ const App = () => {
                   />
                </TouchableOpacity>
             </View>
-            {/* <LottieView
-               style={{ width: 70, height: 70, borderWidth: 1 }}
-               source={require('./assets/images/4080-sound-bars-animation.json')}
-               size={30}
-               autoPlay
-               loop
-            /> */}
          </View>
       )
    }
@@ -121,7 +129,7 @@ const styles = StyleSheet.create({
    },
    subContainer: {
       flexDirection: "row",
-      justifyContent: "flex-start",
+      justifyContent: "space-between",
       height: '40%',
       width: '90%',
       backgroundColor: "white",
@@ -141,7 +149,9 @@ const styles = StyleSheet.create({
       height: '30%',
       borderRadius: 20,
       backgroundColor: "white",
-      alignItems: "center"
+      alignItems: "center",
+      flexDirection:"column",
+      justifyContent:"space-between"
    }
 })
 export default App;
